@@ -1,36 +1,36 @@
-import Header from '../components/header'
-import ExtLink from '../components/ext-link'
+import Header from "../components/header";
+import ExtLink from "../components/ext-link";
 
-import sharedStyles from '../styles/shared.module.css'
-import contactStyles from '../styles/contact.module.css'
+import sharedStyles from "../styles/shared.module.css";
+import contactStyles from "../styles/contact.module.css";
 
-import GitHub from '../components/svgs/github'
-import Twitter from '../components/svgs/twitter'
-import Envelope from '../components/svgs/envelope'
-import LinkedIn from '../components/svgs/linkedin'
+import GitHub from "../components/svgs/github";
+import Twitter from "../components/svgs/twitter";
+import Envelope from "../components/svgs/envelope";
+import LinkedIn from "../components/svgs/linkedin";
 
 const contacts = [
   {
     Comp: Twitter,
-    alt: 'twitter icon',
-    link: 'https://twitter.com/_ijjk',
+    alt: "twitter icon",
+    link: "https://twitter.com/jdetle"
   },
   {
     Comp: GitHub,
-    alt: 'github icon',
-    link: 'https://github.com/ijjk',
+    alt: "github icon",
+    link: "https://github.com/kjdetle"
   },
   {
     Comp: LinkedIn,
-    alt: 'linkedin icon',
-    link: 'https://www.linkedin.com/in/jj-kasper-0b5392166/',
+    alt: "linkedin icon",
+    link: "https://www.linkedin.com/in/jdetle"
   },
   {
     Comp: Envelope,
-    alt: 'envelope icon',
-    link: 'mailto:jj@jjsweb.site?subject=Notion Blog',
-  },
-]
+    alt: "envelope icon",
+    link: "mailto:jdetle@gmail.com"
+  }
+];
 
 export default () => (
   <>
@@ -43,8 +43,8 @@ export default () => (
       <h1 style={{ marginTop: 0 }}>Contact</h1>
 
       <div className={contactStyles.name}>
-        JJ Kasper - Next.js Engineer @{' '}
-        <ExtLink href="https://zeit.co">ZEIT</ExtLink>
+        John Detlefs Frontend @{" "}
+        <ExtLink href="https://meshify.com">Meshify</ExtLink>
       </div>
 
       <div className={contactStyles.links}>
@@ -53,9 +53,9 @@ export default () => (
             <ExtLink key={link} href={link} aria-label={alt}>
               <Comp height={32} />
             </ExtLink>
-          )
+          );
         })}
       </div>
     </div>
   </>
-)
+);
