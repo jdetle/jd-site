@@ -6,8 +6,9 @@ import styles from "../styles/header.module.css";
 
 const navItems: { label: string; page?: string; link?: string }[] = [
   { label: "Home", page: "/" },
-  { label: "Blog", page: "/blog" },
-  { label: "Contact", page: "/contact" }
+  { label: "Tech Blog", page: "/blog" },
+  { label: "Contact", page: "/contact" },
+  { label: "How Its Built", page: "/next-notion" }
 ];
 
 const ogImageUrl = "https://";

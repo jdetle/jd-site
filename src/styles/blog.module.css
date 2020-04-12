@@ -47,7 +47,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: var(--gap-double);
 }
 .titleContainer:hover {
   cursor: pointer;

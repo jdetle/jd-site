@@ -5,10 +5,14 @@ export default () => (
   <>
     <Header titlePre="Home" />
     <div className={sharedStyles.layout}>
-      <h1> John Detlefs - Tech Blog </h1>
-
+      <h1> This is My Personal Site </h1>
       <div className="explanation">
-        <p>This my blog.</p>
+        <p>
+          {" "}
+          Currently this just hosts my blog posts sourced from Notion. I
+          eventually intend on hosting photos here, less professional ramblings,
+          and documentation of pet projects that I do around the house.
+        </p>
       </div>
     </div>
   </>
