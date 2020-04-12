@@ -166,7 +166,6 @@ const RenderPost = ({ post, redirect, preview }) => {
         )}
 
         {(post.content || []).map((block, blockIdx) => {
-          console.log(block);
           const { value } = block;
           const { type, properties, id, parent_id } = value;
           const isLast = blockIdx === post.content.length - 1;
