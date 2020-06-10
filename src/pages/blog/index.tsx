@@ -45,7 +45,7 @@ export async function getStaticProps({ preview }) {
       preview: preview || false,
       posts
     },
-    revalidate: 10
+    unstable_revalidate: 10
   };
 }
 
