@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <feed xmlns="http://www.w3.org/2005/Atom">
+    <title>John Detlefs Tech Blog</title>
+    <subtitle>All things code</subtitle>
+    <link href="/atom" rel="self" type="application/rss+xml"/>
+    <link href="/" />
+    <updated>2020-04-21T21:59:42.099Z</updated>
+    <id>John Detlefs Tech Blog</id>
+  </feed>
