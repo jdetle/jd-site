@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { compareAsc } from "date-fns";
+
 import Header from "../../components/header";
 
 import blogStyles from "../../styles/blog.module.css";
@@ -30,8 +32,8 @@ export async function getStaticProps({ preview }) {
       }
       return post;
     })
-    .filter(Boolean);
-
+    .filter(Boolean)
+    .sort((pa, pb) => compareAsc(pb.Date, pa.Date));
   const { users } = await getNotionUsers([...authorsToGet]);
 
   posts.map(post => {
