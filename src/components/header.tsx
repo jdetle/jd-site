@@ -6,24 +6,27 @@ import styles from "../styles/header.module.css";
 
 const navItems: { label: string; page?: string; link?: string }[] = [
   { label: "Home", page: "/" },
-  { label: "Tech Blog", page: "/blog" },
+  { label: "Blog", page: "/blog" },
   { label: "Contact", page: "/contact" },
-  { label: "How Its Built", page: "/next-notion" }
+  { label: "Source Code", link: "https://github.com/ijjk/notion-blog" },
 ];
 
-const ogImageUrl = "https://";
+const ogImageUrl = "https://notion-blog.now.sh/og-image.png";
 
-export default ({ titlePre = "" }) => {
+const Header = ({ titlePre = "" }) => {
   const { pathname } = useRouter();
 
   return (
     <header className={styles.header}>
       <Head>
-        <title>{titlePre ? `${titlePre} |` : ""} John Detlefs Tech Blog</title>
-        <meta name="description" content="Tech Blog for John Detlefs" />
-        <meta name="og:title" content="jdetle blog" />
+        <title>{titlePre ? `${titlePre} |` : ""} My Notion Blog</title>
+        <meta
+          name="description"
+          content="An example Next.js site using Notion for the blog"
+        />
+        <meta name="og:title" content="My Notion Blog" />
         <meta property="og:image" content={ogImageUrl} />
-        <meta name="twitter:site" content="jdetle" />
+        <meta name="twitter:site" content="@_ijjk" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={ogImageUrl} />
       </Head>
@@ -45,3 +48,5 @@ export default ({ titlePre = "" }) => {
     </header>
   );
 };
+
+export default Header;

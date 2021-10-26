@@ -4,7 +4,7 @@ const fetch = require("node-fetch");
 const {
   BLOG_INDEX_ID: pageId,
   NOTION_TOKEN,
-  API_ENDPOINT
+  API_ENDPOINT,
 } = require("./server-constants");
 
 async function main() {
@@ -37,8 +37,8 @@ async function main() {
               view_ids: [viewId],
               properties: {},
               created_time: now,
-              last_edited_time: now
-            }
+              last_edited_time: now,
+            },
           },
           {
             id: pageId1,
@@ -53,8 +53,8 @@ async function main() {
               alive: true,
               properties: {},
               created_time: now,
-              last_edited_time: now
-            }
+              last_edited_time: now,
+            },
           },
           {
             id: pageId2,
@@ -69,8 +69,8 @@ async function main() {
               alive: true,
               properties: {},
               created_time: now,
-              last_edited_time: now
-            }
+              last_edited_time: now,
+            },
           },
           {
             id: pageId3,
@@ -85,8 +85,8 @@ async function main() {
               alive: true,
               properties: {},
               created_time: now,
-              last_edited_time: now
-            }
+              last_edited_time: now,
+            },
           },
           {
             id: viewId,
@@ -104,18 +104,18 @@ async function main() {
                   { property: 'S6_"', visible: true },
                   { property: "la`A", visible: true },
                   { property: "a`af", visible: true },
-                  { property: "ijjk", visible: true }
+                  { property: "ijjk", visible: true },
                 ],
-                table_wrap: true
+                table_wrap: true,
               },
               query2: {
-                aggregations: [{ property: "title", aggregator: "count" }]
+                aggregations: [{ property: "title", aggregator: "count" }],
               },
               page_sort: [pageId1, pageId2, pageId3],
               parent_id: collectionId,
               parent_table: "block",
-              alive: true
-            }
+              alive: true,
+            },
           },
           {
             id: collectionViewId,
@@ -129,27 +129,27 @@ async function main() {
                 'S6_"': { name: "Slug", type: "text" },
                 "la`A": { name: "Published", type: "checkbox" },
                 "a`af": { name: "Date", type: "date" },
-                ijjk: { name: "Authors", type: "person" }
+                ijjk: { name: "Authors", type: "person" },
               },
               format: {
                 collection_page_properties: [
                   { property: 'S6_"', visible: true },
                   { property: "la`A", visible: true },
                   { property: "a`af", visible: true },
-                  { property: "ijjk", visible: true }
-                ]
+                  { property: "ijjk", visible: true },
+                ],
               },
               parent_id: collectionId,
               parent_table: "block",
-              alive: true
-            }
+              alive: true,
+            },
           },
           {
             id: collectionId,
             table: "block",
             path: [],
             command: "update",
-            args: { parent_id: pageId, parent_table: "block", alive: true }
+            args: { parent_id: pageId, parent_table: "block", alive: true },
           },
           {
             table: "block",
@@ -159,164 +159,164 @@ async function main() {
             args: {
               ...(existingBlockId
                 ? {
-                    after: existingBlockId
+                    after: existingBlockId,
                   }
                 : {}),
-              id: collectionId
-            }
+              id: collectionId,
+            },
           },
           {
             table: "block",
             id: collectionId,
             path: ["created_by_id"],
             command: "set",
-            args: userId
+            args: userId,
           },
           {
             table: "block",
             id: collectionId,
             path: ["created_by_table"],
             command: "set",
-            args: "notion_user"
+            args: "notion_user",
           },
           {
             table: "block",
             id: collectionId,
             path: ["last_edited_time"],
             command: "set",
-            args: now
+            args: now,
           },
           {
             table: "block",
             id: collectionId,
             path: ["last_edited_by_id"],
             command: "set",
-            args: userId
+            args: userId,
           },
           {
             table: "block",
             id: collectionId,
             path: ["last_edited_by_table"],
             command: "set",
-            args: "notion_user"
+            args: "notion_user",
           },
           {
             table: "block",
             id: pageId1,
             path: ["created_by_id"],
             command: "set",
-            args: userId
+            args: userId,
           },
           {
             table: "block",
             id: pageId1,
             path: ["created_by_table"],
             command: "set",
-            args: "notion_user"
+            args: "notion_user",
           },
           {
             table: "block",
             id: pageId1,
             path: ["last_edited_time"],
             command: "set",
-            args: now
+            args: now,
           },
           {
             table: "block",
             id: pageId1,
             path: ["last_edited_by_id"],
             command: "set",
-            args: userId
+            args: userId,
           },
           {
             table: "block",
             id: pageId1,
             path: ["last_edited_by_table"],
             command: "set",
-            args: "notion_user"
+            args: "notion_user",
           },
           {
             table: "block",
             id: pageId2,
             path: ["created_by_id"],
             command: "set",
-            args: userId
+            args: userId,
           },
           {
             table: "block",
             id: pageId2,
             path: ["created_by_table"],
             command: "set",
-            args: "notion_user"
+            args: "notion_user",
           },
           {
             table: "block",
             id: pageId2,
             path: ["last_edited_time"],
             command: "set",
-            args: now
+            args: now,
           },
           {
             table: "block",
             id: pageId2,
             path: ["last_edited_by_id"],
             command: "set",
-            args: userId
+            args: userId,
           },
           {
             table: "block",
             id: pageId2,
             path: ["last_edited_by_table"],
             command: "set",
-            args: "notion_user"
+            args: "notion_user",
           },
           {
             table: "block",
             id: pageId3,
             path: ["created_by_id"],
             command: "set",
-            args: userId
+            args: userId,
           },
           {
             table: "block",
             id: pageId3,
             path: ["created_by_table"],
             command: "set",
-            args: "notion_user"
+            args: "notion_user",
           },
           {
             table: "block",
             id: pageId3,
             path: ["last_edited_time"],
             command: "set",
-            args: now
+            args: now,
           },
           {
             table: "block",
             id: pageId3,
             path: ["last_edited_by_id"],
             command: "set",
-            args: userId
+            args: userId,
           },
           {
             table: "block",
             id: pageId3,
             path: ["last_edited_by_table"],
             command: "set",
-            args: "notion_user"
-          }
-        ]
-      }
-    ]
+            args: "notion_user",
+          },
+        ],
+      },
+    ],
   };
 
   const res = await fetch(`${API_ENDPOINT}/submitTransaction`, {
     method: "POST",
     headers: {
       cookie: `token_v2=${NOTION_TOKEN}`,
-      "content-type": "application/json"
+      "content-type": "application/json",
     },
-    body: JSON.stringify(requestBody)
+    body: JSON.stringify(requestBody),
   });
 
   if (!res.ok) {
@@ -329,15 +329,15 @@ async function getExistingexistingBlockId() {
     method: "POST",
     headers: {
       cookie: `token_v2=${NOTION_TOKEN}`,
-      "content-type": "application/json"
+      "content-type": "application/json",
     },
     body: JSON.stringify({
       pageId,
       limit: 25,
       cursor: { stack: [] },
       chunkNumber: 0,
-      verticalColumns: false
-    })
+      verticalColumns: false,
+    }),
   });
 
   if (!res.ok) {
@@ -347,7 +347,7 @@ async function getExistingexistingBlockId() {
   }
   const data = await res.json();
   const id = Object.keys(data ? data.recordMap.block : {}).find(
-    id => id !== pageId
+    (id) => id !== pageId
   );
   return id || uuid();
 }
@@ -357,9 +357,9 @@ async function getUserId() {
     method: "POST",
     headers: {
       cookie: `token_v2=${NOTION_TOKEN}`,
-      "content-type": "application/json"
+      "content-type": "application/json",
     },
-    body: "{}"
+    body: "{}",
   });
 
   if (!res.ok) {
@@ -368,7 +368,6 @@ async function getUserId() {
     );
   }
   const data = await res.json();
-
   return Object.keys(data.recordMap.notion_user)[0];
 }
 
