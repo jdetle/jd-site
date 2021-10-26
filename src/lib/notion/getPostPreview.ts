@@ -24,5 +24,6 @@ export async function getPostPreview(pageId: string) {
         !nonPreviewTypes.has(type) && properties
     )
     .map((block: any) => block.value.properties.title);
+
   return blocks;
 }

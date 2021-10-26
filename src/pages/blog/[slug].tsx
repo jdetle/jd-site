@@ -26,9 +26,9 @@ export async function getStaticProps({ params: { slug }, preview }) {
     return {
       props: {
         redirect: "/blog",
-        preview: false
+        preview: false,
       },
-      unstable_revalidate: 5
+      unstable_revalidate: 5,
     };
   }
   const postData = await getPageData(post.id);
@@ -57,14 +57,14 @@ export async function getStaticProps({ params: { slug }, preview }) {
   }
 
   const { users } = await getNotionUsers(post.Authors || []);
-  post.Authors = Object.keys(users).map(id => users[id].full_name);
+  post.Authors = Object.keys(users).map((id) => users[id].full_name);
 
   return {
     props: {
       post,
-      preview: preview || false
+      preview: preview || false,
     },
-    unstable_revalidate: 10
+    revalidate: 10,
   };
 }
 
@@ -75,9 +75,9 @@ export async function getStaticPaths() {
   // for actually published ones
   return {
     paths: Object.keys(postsTable)
-      .filter(post => postsTable[post].Published === "Yes")
-      .map(slug => getBlogLink(slug)),
-    fallback: true
+      .filter((post) => postsTable[post].Published === "Yes")
+      .map((slug) => getBlogLink(slug)),
+    fallback: true,
   };
 }
 
@@ -179,7 +179,7 @@ const RenderPost = ({ post, redirect, preview }) => {
             listMap[id] = {
               key: id,
               nested: [],
-              children: textBlock(properties.title, true, id)
+              children: textBlock(properties.title, true, id),
             };
 
             if (listMap[parent_id]) {
@@ -193,10 +193,10 @@ const RenderPost = ({ post, redirect, preview }) => {
               React.createElement(
                 listTagName,
                 { key: listLastId! },
-                Object.keys(listMap).map(itemId => {
+                Object.keys(listMap).map((itemId) => {
                   if (listMap[itemId].isNested) return null;
 
-                  const createEl = item =>
+                  const createEl = (item) =>
                     React.createElement(
                       components.li || "ul",
                       { key: item.key },
@@ -205,7 +205,7 @@ const RenderPost = ({ post, redirect, preview }) => {
                         ? React.createElement(
                             components.ul || "ul",
                             { key: item + "sub-list" },
-                            item.nested.map(nestedId =>
+                            item.nested.map((nestedId) =>
                               createEl(listMap[nestedId])
                             )
                           )
@@ -228,6 +228,57 @@ const RenderPost = ({ post, redirect, preview }) => {
             );
           };
 
+          const renderBookmark = ({ link, title, description, format }) => {
+            const { bookmark_icon: icon, bookmark_cover: cover } = format;
+            toRender.push(
+              <div className={blogStyles.bookmark}>
+                <div>
+                  <div style={{ display: "flex" }}>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={blogStyles.bookmarkContentsWrapper}
+                      href={link}
+                    >
+                      <div
+                        role="button"
+                        className={blogStyles.bookmarkContents}
+                      >
+                        <div className={blogStyles.bookmarkInfo}>
+                          <div className={blogStyles.bookmarkTitle}>
+                            {title}
+                          </div>
+                          <div className={blogStyles.bookmarkDescription}>
+                            {description}
+                          </div>
+                          <div className={blogStyles.bookmarkLinkWrapper}>
+                            <img
+                              src={icon}
+                              className={blogStyles.bookmarkLinkIcon}
+                            />
+                            <div className={blogStyles.bookmarkLink}>
+                              {link}
+                            </div>
+                          </div>
+                        </div>
+                        <div className={blogStyles.bookmarkCoverWrapper1}>
+                          <div className={blogStyles.bookmarkCoverWrapper2}>
+                            <div className={blogStyles.bookmarkCoverWrapper3}>
+                              <img
+                                src={cover}
+                                className={blogStyles.bookmarkCover}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            );
+          };
+
           switch (type) {
             case "page":
             case "divider":
@@ -238,50 +289,6 @@ const RenderPost = ({ post, redirect, preview }) => {
               }
               break;
             case "image":
-              const { format = {} } = value;
-              const {
-                block_width,
-                block_height,
-                display_source,
-                properties: image_properties,
-                block_aspect_ratio
-              } = format;
-              const baseBlockWidth = 768;
-              const roundFactor = Math.pow(10, 2);
-              // calculate percentages
-              const width = block_width
-                ? `${Math.round(
-                    (block_width / baseBlockWidth) * 100 * roundFactor
-                  ) / roundFactor}%`
-                : block_height || "100%";
-
-              const useWrapper = block_aspect_ratio && !block_height;
-
-              const childStyle: CSSProperties = useWrapper
-                ? {
-                    width: "100%",
-                    height: "100%",
-                    border: "none",
-                    position: "absolute",
-                    top: 0
-                  }
-                : {
-                    width,
-                    border: "none",
-                    height: block_height,
-                    display: "block",
-                    maxWidth: "100%"
-                  };
-              return (
-                <img
-                  key={!useWrapper ? id : undefined}
-                  src={`/api/asset?assetUrl=${encodeURIComponent(
-                    value.properties.source[0][0] as string
-                  )}&blockId=${id}`}
-                  style={childStyle}
-                />
-              );
-
             case "video":
             case "embed": {
               const { format = {} } = value;
@@ -289,19 +296,21 @@ const RenderPost = ({ post, redirect, preview }) => {
                 block_width,
                 block_height,
                 display_source,
-                properties,
-                block_aspect_ratio
+                block_aspect_ratio,
               } = format;
               const baseBlockWidth = 768;
               const roundFactor = Math.pow(10, 2);
               // calculate percentages
               const width = block_width
-                ? `${Math.round(
-                    (block_width / baseBlockWidth) * 100 * roundFactor
-                  ) / roundFactor}%`
+                ? `${
+                    Math.round(
+                      (block_width / baseBlockWidth) * 100 * roundFactor
+                    ) / roundFactor
+                  }%`
                 : block_height || "100%";
 
-              const Comp = "video";
+              const isImage = type === "image";
+              const Comp = isImage ? "img" : "video";
               const useWrapper = block_aspect_ratio && !block_height;
               const childStyle: CSSProperties = useWrapper
                 ? {
@@ -309,19 +318,19 @@ const RenderPost = ({ post, redirect, preview }) => {
                     height: "100%",
                     border: "none",
                     position: "absolute",
-                    top: 0
+                    top: 0,
                   }
                 : {
                     width,
                     border: "none",
                     height: block_height,
                     display: "block",
-                    maxWidth: "100%"
+                    maxWidth: "100%",
                   };
 
               let child = null;
 
-              if (!value.file_ids) {
+              if (!isImage && !value.file_ids) {
                 // external resource use iframe
                 child = (
                   <iframe
@@ -339,10 +348,11 @@ const RenderPost = ({ post, redirect, preview }) => {
                     src={`/api/asset?assetUrl=${encodeURIComponent(
                       display_source as any
                     )}&blockId=${id}`}
-                    controls={false}
-                    loop={false}
-                    muted={true}
-                    autoPlay={!false}
+                    controls={!isImage}
+                    alt={`An ${isImage ? "image" : "video"} from Notion`}
+                    loop={!isImage}
+                    muted={!isImage}
+                    autoPlay={!isImage}
                     style={childStyle}
                   />
                 );
@@ -353,7 +363,7 @@ const RenderPost = ({ post, redirect, preview }) => {
                   <div
                     style={{
                       paddingTop: `${Math.round(block_aspect_ratio * 100)}%`,
-                      position: "relative"
+                      position: "relative",
                     }}
                     className="asset-wrapper"
                     key={id}
@@ -374,6 +384,11 @@ const RenderPost = ({ post, redirect, preview }) => {
               break;
             case "sub_sub_header":
               renderHeading("h3");
+              break;
+            case "bookmark":
+              const { link, title, description } = properties;
+              const { format = {} } = value;
+              renderBookmark({ link, title, description, format });
               break;
             case "code": {
               if (properties.title) {
@@ -435,6 +450,17 @@ const RenderPost = ({ post, redirect, preview }) => {
                     dangerouslySetInnerHTML={{ __html: properties.html }}
                     key={id}
                   />
+                );
+              }
+              break;
+            }
+            case "equation": {
+              if (properties && properties.title) {
+                const content = properties.title[0][0];
+                toRender.push(
+                  <components.Equation key={id} displayMode={true}>
+                    {content}
+                  </components.Equation>
                 );
               }
               break;

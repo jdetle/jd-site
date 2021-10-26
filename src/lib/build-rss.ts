@@ -6,6 +6,8 @@ import { textBlock } from "./notion/renderers";
 import getBlogIndex from "./notion/getBlogIndex";
 import getNotionUsers from "./notion/getNotionUsers";
 import { postIsPublished, getBlogLink } from "./blog-helpers";
+import { loadEnvConfig } from "@next/env";
+import serverConstants from "./notion/server-constants";
 
 // must use weird syntax to bypass auto replacing of NODE_ENV
 process.env["NODE" + "_ENV"] = "production";
@@ -61,21 +63,27 @@ function createRSS(blogPosts = []) {
 
   return `<?xml version="1.0" encoding="utf-8"?>
   <feed xmlns="http://www.w3.org/2005/Atom">
-    <title>John Detlefs Tech Blog</title>
-    <subtitle>All things code</subtitle>
+    <title>My Blog</title>
+    <subtitle>Blog</subtitle>
     <link href="/atom" rel="self" type="application/rss+xml"/>
     <link href="/" />
     <updated>${NOW}</updated>
-    <id>John Detlefs Tech Blog</id>${postsString}
+    <id>My Notion Blog</id>${postsString}
   </feed>`;
 }
 
 async function main() {
+  await loadEnvConfig(process.cwd());
+  serverConstants.NOTION_TOKEN = process.env.NOTION_TOKEN;
+  serverConstants.BLOG_INDEX_ID = serverConstants.normalizeId(
+    process.env.BLOG_INDEX_ID
+  );
+
   const postsTable = await getBlogIndex(true);
   const neededAuthors = new Set<string>();
 
   const blogPosts = Object.keys(postsTable)
-    .map(slug => {
+    .map((slug) => {
       const post = postsTable[slug];
       if (!postIsPublished(post)) return;
 
@@ -90,8 +98,8 @@ async function main() {
 
   const { users } = await getNotionUsers([...neededAuthors]);
 
-  blogPosts.forEach(post => {
-    post.authors = post.authors.map(id => users[id]);
+  blogPosts.forEach((post) => {
+    post.authors = post.authors.map((id) => users[id]);
     post.link = getBlogLink(post.Slug);
     post.title = post.Page;
     post.date = post.Date;
@@ -102,4 +110,4 @@ async function main() {
   console.log(`Atom feed file generated at \`${outputPath}\``);
 }
 
-main().catch(error => console.error(error));
+main().catch((error) => console.error(error));
