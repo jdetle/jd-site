@@ -1,3 +1,4 @@
+import fetch from "node-fetch";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Header from "../../components/header";
