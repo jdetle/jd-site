@@ -32,10 +32,11 @@ export default async function getNotionAsset(
   });
 
   if (assetRes.ok) {
-    return assetRes.json();
+    return assetRes.json() as unknown as { signedUrls: string[] };
   } else {
     console.log("bad request", assetRes.status);
     res.json({ status: "error", message: "failed to load Notion asset" });
+    // @ts-ignore
     throw new Error(await getError(assetRes));
   }
 }

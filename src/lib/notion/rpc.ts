@@ -17,6 +17,7 @@ export default async function rpc(fnName: string, body: any) {
   if (res.ok) {
     return res.json();
   } else {
+    /* @ts-ignore */
     throw new Error(await getError(res));
   }
 }
