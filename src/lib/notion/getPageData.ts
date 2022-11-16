@@ -10,7 +10,10 @@ export default async function getPageData(pageId: string) {
     var data = await loadPageChunk({ pageId, chunkNumber });
     var blocks = data.recordMap.block;
 
-    while (data.cursor.stack.length !== 0 && chunkNumber < maximumChunckNumer) {
+    while (
+      data.cursor.stack?.length !== 0 &&
+      chunkNumber < maximumChunckNumer
+    ) {
       chunkNumber = chunkNumber + 1;
       data = await loadPageChunk({ pageId, chunkNumber, cursor: data.cursor });
       blocks = Object.assign(blocks, data.recordMap.block);

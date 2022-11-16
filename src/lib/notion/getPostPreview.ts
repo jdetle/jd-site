@@ -10,7 +10,7 @@ export async function getPostPreview(pageId: string) {
   const data = await loadPageChunk({ pageId, limit: 10 });
   blocks = values(data.recordMap.block);
 
-  for (let i = 0; i < blocks.length; i++) {
+  for (let i = 0; i < blocks?.length; i++) {
     if (blocks[i].value.type === "divider") {
       dividerIndex = i;
       break;

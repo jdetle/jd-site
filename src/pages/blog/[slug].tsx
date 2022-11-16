@@ -1,5 +1,4 @@
 import Link from "next/link";
-import fetch from "node-fetch";
 import { useRouter } from "next/router";
 import Header from "../../components/header";
 import Heading from "../../components/heading";
@@ -34,7 +33,7 @@ export async function getStaticProps({ params: { slug }, preview }) {
   const postData = await getPageData(post.id);
   post.content = postData.blocks;
 
-  for (let i = 0; i < postData.blocks.length; i++) {
+  for (let i = 0; i < postData.blocks?.length; i++) {
     const { value } = postData.blocks[i];
     const { type, properties } = value;
     if (type == "tweet") {
@@ -152,7 +151,7 @@ const RenderPost = ({ post, redirect, preview }) => {
       )}
       <div className={blogStyles.post}>
         <h1>{post.Page || ""}</h1>
-        {post.Authors.length > 0 && (
+        {post.Authors?.length > 0 && (
           <div className="authors">By: {post.Authors.join(" ")}</div>
         )}
         {post.Date && (
@@ -161,14 +160,14 @@ const RenderPost = ({ post, redirect, preview }) => {
 
         <hr />
 
-        {(!post.content || post.content.length === 0) && (
+        {(!post.content || post.content?.length === 0) && (
           <p>This post has no content</p>
         )}
 
         {(post.content || []).map((block, blockIdx) => {
           const { value } = block;
           const { type, properties, id, parent_id } = value;
-          const isLast = blockIdx === post.content.length - 1;
+          const isLast = blockIdx === post.content?.length - 1;
           const isList = listTypes.has(type);
           let toRender = [];
 
@@ -201,7 +200,7 @@ const RenderPost = ({ post, redirect, preview }) => {
                       components.li || "ul",
                       { key: item.key },
                       item.children,
-                      item.nested.length > 0
+                      item.nested?.length > 0
                         ? React.createElement(
                             components.ul || "ul",
                             { key: item + "sub-list" },
