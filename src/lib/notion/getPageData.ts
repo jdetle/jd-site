@@ -8,14 +8,18 @@ export default async function getPageData(pageId: string) {
   try {
     var chunkNumber = 0;
     var data = await loadPageChunk({ pageId, chunkNumber });
+    // @ts-ignore
     var blocks = data?.recordMap.block;
 
     while (
+      // @ts-ignore
       data.cursor.stack?.length !== 0 &&
       chunkNumber < maximumChunckNumer
     ) {
       chunkNumber = chunkNumber + 1;
+      // @ts-ignore
       data = await loadPageChunk({ pageId, chunkNumber, cursor: data.cursor });
+      // @ts-ignore
       blocks = Object.assign(blocks, data?.recordMap.block);
     }
     const blockArray = values(blocks);

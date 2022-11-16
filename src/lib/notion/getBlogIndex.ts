@@ -29,6 +29,7 @@ export default async function getBlogIndex(previews = true) {
       });
 
       // Parse table with posts
+      // @ts-ignore
       const tableBlock = values(data?.recordMap.block).find(
         (block: any) => block.value.type === "collection_view"
       );
@@ -68,7 +69,7 @@ export default async function getBlogIndex(previews = true) {
     }
 
     if (useCache) {
-      writeFile(cacheFile, JSON.stringify(postsTable), "utf8").catch(() => {});
+      writeFile(cacheFile, JSON.stringify(postsTable), "utf8").catch(() => { });
     }
   }
 
