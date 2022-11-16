@@ -8,7 +8,7 @@ export default async function getPageData(pageId: string) {
   try {
     var chunkNumber = 0;
     var data = await loadPageChunk({ pageId, chunkNumber });
-    var blocks = data.recordMap.block;
+    var blocks = data?.recordMap.block;
 
     while (
       data.cursor.stack?.length !== 0 &&
@@ -16,7 +16,7 @@ export default async function getPageData(pageId: string) {
     ) {
       chunkNumber = chunkNumber + 1;
       data = await loadPageChunk({ pageId, chunkNumber, cursor: data.cursor });
-      blocks = Object.assign(blocks, data.recordMap.block);
+      blocks = Object.assign(blocks, data?.recordMap.block);
     }
     const blockArray = values(blocks);
     if (blockArray[0] && blockArray[0].value.content) {

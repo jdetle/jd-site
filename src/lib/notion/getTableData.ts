@@ -12,12 +12,12 @@ export default async function loadTable(collectionBlock: any, isPosts = false) {
     collectionId: value.collection_id,
     collectionViewId: value.view_ids[0],
   });
-  const entries = values(col.recordMap.block).filter((block: any) => {
+  const entries = values(col?.recordMap.block).filter((block: any) => {
     return block.value && block.value.parent_id === value.collection_id;
   });
 
-  const colId = Object.keys(col.recordMap.collection)[0];
-  const schema = col.recordMap.collection[colId].value.schema;
+  const colId = Object.keys(col?.recordMap.collection)[0];
+  const schema = col?.recordMap.collection[colId].value.schema;
   const schemaKeys = Object.keys(schema);
 
   for (const entry of entries) {
@@ -47,7 +47,7 @@ export default async function loadTable(collectionBlock: any, isPosts = false) {
               .map((arr: any[]) => arr[1][0][1]);
             break;
           case "p": // page (block)
-            const page = col.recordMap.block[type[1]];
+            const page = col?.recordMap.block[type[1]];
             row.id = page.value.id;
             val = page.value.properties.title[0][0];
             break;

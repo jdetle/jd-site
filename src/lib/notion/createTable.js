@@ -346,7 +346,7 @@ async function getExistingexistingBlockId() {
     );
   }
   const data = await res.json();
-  const id = Object.keys(data ? data.recordMap.block : {}).find(
+  const id = Object.keys(data ? data?.recordMap.block : {}).find(
     (id) => id !== pageId
   );
   return id || uuid();
@@ -368,7 +368,7 @@ async function getUserId() {
     );
   }
   const data = await res.json();
-  return Object.keys(data.recordMap.notion_user)[0];
+  return Object.keys(data?.recordMap.notion_user)[0];
 }
 
 module.exports = main;

@@ -29,7 +29,7 @@ export default async function getBlogIndex(previews = true) {
       });
 
       // Parse table with posts
-      const tableBlock = values(data.recordMap.block).find(
+      const tableBlock = values(data?.recordMap.block).find(
         (block: any) => block.value.type === "collection_view"
       );
 
