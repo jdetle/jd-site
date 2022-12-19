@@ -29,7 +29,8 @@ export default async function getBlogIndex(previews = true) {
       });
 
       // Parse table with posts
-      const tableBlock = values(data.recordMap.block).find(
+      // @ts-ignore
+      const tableBlock = values(data?.recordMap.block).find(
         (block: any) => block.value.type === "collection_view"
       );
 
@@ -44,7 +45,7 @@ export default async function getBlogIndex(previews = true) {
     // only get 10 most recent post's previews
     const postsKeys = Object.keys(postsTable).splice(0, 10);
 
-    const sema = new Sema(3, { capacity: postsKeys.length });
+    const sema = new Sema(3, { capacity: postsKeys?.length });
 
     if (previews) {
       await Promise.all(
@@ -68,7 +69,7 @@ export default async function getBlogIndex(previews = true) {
     }
 
     if (useCache) {
-      writeFile(cacheFile, JSON.stringify(postsTable), "utf8").catch(() => {});
+      writeFile(cacheFile, JSON.stringify(postsTable), "utf8").catch(() => { });
     }
   }
 
