@@ -42,20 +42,5 @@ if (!BLOG_INDEX_ID) {
 }
 
 module.exports = {
-  output: 'standalone',
-  webpack(cfg, { dev, isServer }) {
-    // only compile build-rss in production server build
-    if (dev || !isServer) return cfg;
-
-    // we're in build mode so enable shared caching for Notion data
-    process.env.USE_CACHE = "true";
-
-    const originalEntry = cfg.entry;
-    cfg.entry = async () => {
-      const entries = { ...(await originalEntry()) };
-      entries["build-rss"] = "./src/lib/build-rss.ts";
-      return entries;
-    };
-    return cfg;
-  },
+  output: "standalone",
 };
