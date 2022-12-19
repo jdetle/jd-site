@@ -1,4 +1,4 @@
-import { renderToString, ParseError } from "katex";
+import { renderToString, ParseError } from "katex/katex";
 
 function render(expression: string, displayMode: boolean): string {
   let result: string;

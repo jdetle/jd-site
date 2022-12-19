@@ -19,7 +19,7 @@ const Header = ({ titlePre = "" }) => {
   return (
     <header className={styles.header}>
       <Head>
-        <title>{titlePre ? `${titlePre} |` : ""} My Notion Blog</title>
+        <title>John Detlefs' Blog</title>
         <meta
           name="description"
           content="An example Next.js site using Notion for the blog"
@@ -34,11 +34,7 @@ const Header = ({ titlePre = "" }) => {
         {navItems.map(({ label, page, link }) => (
           <li key={label}>
             {page ? (
-              <Link href={page}>
-                <a className={pathname === page ? "active" : undefined}>
-                  {label}
-                </a>
-              </Link>
+              <Link href={page}>{label}</Link>
             ) : (
               <ExtLink href={link}>{label}</ExtLink>
             )}

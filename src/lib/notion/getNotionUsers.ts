@@ -1,6 +1,7 @@
 import rpc from './rpc'
 
 export default async function getNotionUsers(ids: string[]) {
+  // @ts-ignore
   const { results = [] } = await rpc('getRecordValues', {
     requests: ids.map((id: string) => ({
       id,

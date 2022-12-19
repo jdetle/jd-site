@@ -34,7 +34,7 @@ export function textBlock(text = [], noPTag = false, mainKey) {
 
   for (const textItem of text) {
     key++;
-    if (textItem.length === 1) {
+    if (textItem?.length === 1) {
       children.push(textItem);
       continue;
     }
