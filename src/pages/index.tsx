@@ -14,9 +14,11 @@ export default function Index() {
           width="250"
           alt="Vercel + Notion"
         />
-        <h1>
-          My Notion Blog (copied from https://github.com/ijjk/notion-blog)
-        </h1>
+        <h1>My Notion Blog</h1>
+        <div style={{ margin: 100 }}> </div>
+        <p style={{ fontSize: 10 }}>
+          (copied from https://github.com/ijjk/notion-blog)
+        </p>
       </div>
     </>
   );
