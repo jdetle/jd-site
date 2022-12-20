@@ -16,7 +16,7 @@ export default function Index() {
         />
         <h1>John Detlefs' Notion Blog</h1>
         <h2>
-          Blazing Fast Notion Blog with Next.js'{" "}
+          A "stolen" nextjs / notion blog '{" "}
           <ExtLink
             href="https://github.com/vercel/next.js/issues/9524"
             className="dotted"

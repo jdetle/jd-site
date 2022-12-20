@@ -18,7 +18,7 @@ function applyTags(tags = [], children, noPTag = false, key) {
       props.href = tag[1];
     }
     if (tagName === "e") {
-      tagName = components.Equation;
+      tagName = "span"
       props.displayMode = false;
       child = tag[1];
     }
