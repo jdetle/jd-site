@@ -86,7 +86,7 @@ const Index = ({ posts = [], preview }) => {
               {post.Date && (
                 <div className="posted">Posted: {getDateStr(post.Date)}</div>
               )}
-              <p>
+              <p style={{ width: "100%" }}>
                 {(!post.preview || post.preview?.length === 0) &&
                   "No preview available"}
                 {(post.preview || []).map((block, idx) =>

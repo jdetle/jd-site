@@ -16,9 +16,6 @@ export default function Index() {
         />
         <h1>My Notion Blog</h1>
         <div style={{ margin: 100 }}> </div>
-        <p style={{ fontSize: 10 }}>
-          (copied from https://github.com/ijjk/notion-blog)
-        </p>
       </div>
     </>
   );
