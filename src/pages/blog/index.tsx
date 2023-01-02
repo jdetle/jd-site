@@ -51,6 +51,7 @@ const Index = ({ posts = [], preview }) => {
   return (
     <>
       <Header titlePre="Blog" />
+
       {preview && (
         <div className={blogStyles.previewAlertContainer}>
           <div className={blogStyles.previewAlert}>
@@ -63,6 +64,12 @@ const Index = ({ posts = [], preview }) => {
         </div>
       )}
       <div className={`${sharedStyles.layout} ${blogStyles.blogIndex}`}>
+        <img
+          src="/vercel-and-notion.png"
+          height="85"
+          width="250"
+          alt="Vercel + Notion"
+        />
         <h1>My Notion Blog</h1>
         {posts?.length === 0 && (
           <p className={blogStyles.noPosts}>There are no posts yet</p>
